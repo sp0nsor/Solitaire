@@ -15,7 +15,7 @@ public class SpriteLoader : MonoBehaviour
     private void Awake()
     {
         _allSprites = new Sprite[_cardsAtlas.spriteCount];
-        _spritesGroup = new List<Sprite>[13];
+        _spritesGroup = new List<Sprite>[14];
         _cardsAtlas.GetSprites(_allSprites);
 
         _numberRegex = new Regex(@"^\d+");
@@ -27,9 +27,10 @@ public class SpriteLoader : MonoBehaviour
         {
             int rank = ExtractNumber(sprite.name);
 
-            if (_spritesGroup[rank] == null)
-                _spritesGroup[rank] = new List<Sprite>(4);
+            if (rank < 0)
+                continue;
 
+            _spritesGroup[rank] = new List<Sprite>(4);
             _spritesGroup[rank].Add(sprite);
         }
 
@@ -40,8 +41,11 @@ public class SpriteLoader : MonoBehaviour
     {
         var match = _numberRegex.Match(spriteName);
         if (match.Success)
-            return int.Parse(match.Value);
+        {
+            int rank = int.Parse(match.Value);
 
-        throw new System.Exception("Number not found in sprite name");
+            return rank;
+        }
+        return -1;
     }
 }

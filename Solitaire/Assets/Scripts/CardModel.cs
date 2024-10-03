@@ -4,9 +4,10 @@ using UnityEngine;
 public class CardModel : MonoBehaviour
 {
     public event Action<bool> OnVisibilityChanged;
-    public CardModel Parent { get; private set; }
-    public CardModel Child { get; private set; }
-    public int Rank { get; private set; }
+    public CardModel Parent { get;  set; }
+    public CardModel Child { get;  set; }
+    public int Rank { get;  set; }
+    public int Stack { get; set; } // хз что это конечно 
 
     private bool _isOpen;
 

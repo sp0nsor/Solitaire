@@ -86,6 +86,8 @@ GameObject:
   - component: {fileID: 6986087275146623717}
   - component: {fileID: 1622207921750514452}
   - component: {fileID: 8342499129400042702}
+  - component: {fileID: -665947595309221333}
+  - component: {fileID: 2548649596902914754}
   m_Layer: 5
   m_Name: Card
   m_TagString: Card
@@ -148,6 +150,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 1
   m_VerticalFit: 1
+--- !u!114 &-665947595309221333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7634568866096522555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a60d1a9a298564383a5a0b0586b972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2548649596902914754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7634568866096522555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4030790b3db17714b9f3f091371518e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _front: {fileID: 8468307978952198050}
+  _back: {fileID: 1802380990367046447}
 --- !u!1 &8468307978952198050
 GameObject:
   m_ObjectHideFlags: 0
