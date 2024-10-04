@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.U2D;
 using UnityEngine;
 
-public class SpriteLoader : MonoBehaviour
+public class SpriteLoader : MonoBehaviour, ISpriteLoader
 {
     [SerializeField] private SpriteAtlas _cardsAtlas;
 
@@ -30,7 +30,10 @@ public class SpriteLoader : MonoBehaviour
             if (rank < 0)
                 continue;
 
-            _spritesGroup[rank] = new List<Sprite>(4);
+            if (_spritesGroup[rank] == null)
+                _spritesGroup[rank] = new List<Sprite>(4);
+
+
             _spritesGroup[rank].Add(sprite);
         }
 
@@ -46,6 +49,7 @@ public class SpriteLoader : MonoBehaviour
 
             return rank;
         }
+
         return -1;
     }
 }

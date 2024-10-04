@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +7,7 @@ public class CombinationGenerator : MonoBehaviour
     private const float _directionChangeChance = 0.15f;
 
     public GameObject CardPrefab;
+    public DeckView DeckView;
 
     public List<CardModel> cardModels;
     private List<Sprite>[] _cardsSprites;
@@ -15,19 +15,19 @@ public class CombinationGenerator : MonoBehaviour
     private List<CardModel> _generatedDeck;
 
     private SpriteLoader _loader;
-    private DeckModel _deck;
 
     private void Start()
     {
-        _deck = GetComponent<DeckModel>();
         _loader = GetComponentInChildren<SpriteLoader>();
 
         GetSortedGroup();
         _cardsSprites = _loader.GetSpritesGroup();
+        //Debug.Log(_cardsSprites[6].Count);
 
 
         var combos = GetCombinations(40);
         InitShuffle(_cardsGroup, combos, out _generatedDeck);
+        DeckView.ShowCurrentCard(_generatedDeck[_generatedDeck.Count - 1]);
     }
 
     private void GetSortedGroup()
@@ -51,7 +51,7 @@ public class CombinationGenerator : MonoBehaviour
         List<List<int>> results = new List<List<int>>();
         while (cardsOnField > 0)
         {
-            var rank = Random.Range(0, 14);
+            var rank = Random.Range(1, 14);
             results.Add(new List<int>());
             results[results.Count - 1].Add(rank);
             var length = Mathf.Min(Random.Range(2, 8), cardsOnField);
@@ -62,9 +62,9 @@ public class CombinationGenerator : MonoBehaviour
                 rank += ascending ? 1 : -1;
                 if (rank > 13)
                 {
-                    rank = 0;
+                    rank = 1;
                 }
-                else if (rank < 0)
+                else if (rank <= 0)
                 {
                     rank = 13;
                 }
@@ -107,17 +107,16 @@ public class CombinationGenerator : MonoBehaviour
     {
         cardModel.Rank = rank;
         cardModel.Stack = stack;
-
-        //cardModel.GetComponent<CardView>().SetFrontImage(_cardsSprites[rank][Random.Range(0, 4)]);
+        cardModel.GetComponent<CardView>().SetFrontImage(_cardsSprites[rank][Random.Range(0, 4)]);
     }
 
-    private CardModel CreateDeckCard(int rank)
+    private CardModel CreateDeckCard(int rank) // можно написать что-то типо фабричного метода кторому будем говорить "дай мне карту с тким рангом"
     {
         var deckCard = Instantiate(CardPrefab, transform);
         deckCard.transform.SetAsFirstSibling();
         CardModel cardModel = deckCard.GetComponent<CardModel>();
         cardModel.Rank = rank;
-        //deckCard.GetComponent<CardView>().SetFrontImage(_cardsSprites[cardModel.Rank][Random.Range(0, 4)]);
+        deckCard.GetComponent<CardView>().SetFrontImage(_cardsSprites[cardModel.Rank][Random.Range(0, 4)]);
         return cardModel;
     }
 }
