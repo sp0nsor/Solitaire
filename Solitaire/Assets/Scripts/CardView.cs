@@ -13,7 +13,6 @@ public class CardView : MonoBehaviour, IPointerDownHandler
     private void Awake()
     {
         _model = GetComponent<CardModel>();
-        _model.OnVisibilityChanged += IsOpen;
     }
 
     public void SetFrontImage(Sprite sprite)

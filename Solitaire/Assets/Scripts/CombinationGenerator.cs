@@ -22,8 +22,6 @@ public class CombinationGenerator : MonoBehaviour
 
         GetSortedGroup();
         _cardsSprites = _loader.GetSpritesGroup();
-        //Debug.Log(_cardsSprites[6].Count);
-
 
         var combos = GetCombinations(40);
         InitShuffle(_cardsGroup, combos, out _generatedDeck);
@@ -103,7 +101,7 @@ public class CombinationGenerator : MonoBehaviour
         deck.Reverse();
     }
 
-    private void InitFieldCard(int rank, int stack, CardModel cardModel)
+    private void InitFieldCard(int rank, int stack, CardModel cardModel) // вот этого здесь быть не должно
     {
         cardModel.Rank = rank;
         cardModel.Stack = stack;
