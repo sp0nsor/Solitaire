@@ -9,10 +9,10 @@ public class CombinationGenerator : MonoBehaviour
     public GameObject CardPrefab;
     public DeckView DeckView;
 
-    public List<CardModel> cardModels;
+    public List<Card> cardModels;
     private List<Sprite>[] _cardsSprites;
-    private List<CardModel>[] _cardsGroup;
-    private List<CardModel> _generatedDeck;
+    private List<Card>[] _cardsGroup;
+    private List<Card> _generatedDeck;
 
     private SpriteLoader _loader;
 
@@ -21,7 +21,7 @@ public class CombinationGenerator : MonoBehaviour
         _loader = GetComponentInChildren<SpriteLoader>();
 
         GetSortedGroup();
-        _cardsSprites = _loader.GetSpritesGroup();
+        //_cardsSprites = _loader.GetSpritesGroup();
 
         var combos = GetCombinations(40);
         InitShuffle(_cardsGroup, combos, out _generatedDeck);
@@ -30,12 +30,12 @@ public class CombinationGenerator : MonoBehaviour
 
     private void GetSortedGroup()
     {
-        _cardsGroup = new List<CardModel>[4];
+        _cardsGroup = new List<Card>[4];
         int cardIndex = 0;
 
         for (int i = 0; i < 4; i++)
         {
-            _cardsGroup[i] = new List<CardModel>(10);
+            _cardsGroup[i] = new List<Card>(10);
             for (int j = 0; j < 10; j++)
             {
                 _cardsGroup[i].Add(cardModels[cardIndex]);
@@ -74,14 +74,14 @@ public class CombinationGenerator : MonoBehaviour
         return results;
     }
 
-    private void InitShuffle(List<CardModel>[] cardStacks, List<List<int>> combinations, out List<CardModel> deck)
+    private void InitShuffle(List<Card>[] cardStacks, List<List<int>> combinations, out List<Card> deck)
     {
         int[] lastIndexInStack = new int[cardStacks.Length];
         for (int i = 0; i < cardStacks.Length; i++)
         {
             lastIndexInStack[i] = cardStacks[i].Count - 1;
         }
-        deck = new List<CardModel>();
+        deck = new List<Card>();
         foreach (var combo in combinations)
         {
             deck.Add(CreateDeckCard(combo[0]));
@@ -101,20 +101,20 @@ public class CombinationGenerator : MonoBehaviour
         deck.Reverse();
     }
 
-    private void InitFieldCard(int rank, int stack, CardModel cardModel) // вот этого здесь быть не должно
+    private void InitFieldCard(int rank, int stack, Card cardModel) // вот этого здесь быть не должно
     {
         cardModel.Rank = rank;
-        cardModel.Stack = stack;
-        cardModel.GetComponent<CardView>().SetFrontImage(_cardsSprites[rank][Random.Range(0, 4)]);
+        //cardModel.Stack = stack;
+        //cardModel.GetComponent<CardView>().SetFrontImage(_cardsSprites[rank][Random.Range(0, 4)]);
     }
 
-    private CardModel CreateDeckCard(int rank) // можно написать что-то типо фабричного метода кторому будем говорить "дай мне карту с тким рангом"
+    private Card CreateDeckCard(int rank) // можно написать что-то типо фабричного метода кторому будем говорить "дай мне карту с тким рангом"
     {
         var deckCard = Instantiate(CardPrefab, transform);
         deckCard.transform.SetAsFirstSibling();
-        CardModel cardModel = deckCard.GetComponent<CardModel>();
+        Card cardModel = deckCard.GetComponent<Card>();
         cardModel.Rank = rank;
-        deckCard.GetComponent<CardView>().SetFrontImage(_cardsSprites[cardModel.Rank][Random.Range(0, 4)]);
+        //deckCard.GetComponent<CardView>().SetFrontImage(_cardsSprites[cardModel.Rank][Random.Range(0, 4)]);
         return cardModel;
     }
 }

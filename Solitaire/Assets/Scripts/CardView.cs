@@ -2,43 +2,27 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardView : MonoBehaviour, IPointerDownHandler
+public class CardView : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _front, _back;
-/*    private Sprite _front;
-    private Sprite _back;*/
-    private CardModel _model;
+    [SerializeField] private GameObject _front, _back;
+    //[SerializeField] private SpriteLoader _spriteLoader;
 
-    private void Awake()
+    private Card _model;
+
+    private void OnEnable()
     {
-        _model = GetComponent<CardModel>();
+        //_model = GetComponent<CardModel>();
+        //InitFrontImage();
     }
 
-    public void SetFrontImage(Sprite sprite)
+/*    public void SetFrontImage(Sprite sprite)
     {
         _front.GetComponent<Image>().sprite = sprite;
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        //GameController.TryMoveCard(_model);
-    }
-
-/*    public bool IsOpen
-    {
-        get
-        {
-            return _back.activeSelf;
-        }
-        set
-        {
-            _back.SetActive(!value);
-        }
     }*/
 
-    public void IsOpen(bool visibility)
+/*    public void InitFrontImage()
     {
-        _back.SetActive(!visibility);
-    }
+        Sprite sprite = _spriteLoader.GetSprite(_model.Rank, Random.Range(0, 4));
+        _front.GetComponent<Image>().sprite = sprite;
+    }*/
 }

@@ -1,9 +1,9 @@
-using System.Text.RegularExpressions;
-using System.Collections.Generic;
-using UnityEngine.U2D;
 using UnityEngine;
+using UnityEngine.U2D;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
-public class SpriteLoader : MonoBehaviour, ISpriteLoader
+public class SpriteLoader : MonoBehaviour
 {
     [SerializeField] private SpriteAtlas _cardsAtlas;
 
@@ -19,9 +19,12 @@ public class SpriteLoader : MonoBehaviour, ISpriteLoader
         _cardsAtlas.GetSprites(_allSprites);
 
         _numberRegex = new Regex(@"^\d+");
+
+        InitSpritesGroup();
+
     }
 
-    public List<Sprite>[] GetSpritesGroup()
+    public void InitSpritesGroup()
     {
         foreach (Sprite sprite in _allSprites)
         {
@@ -36,8 +39,11 @@ public class SpriteLoader : MonoBehaviour, ISpriteLoader
 
             _spritesGroup[rank].Add(sprite);
         }
+    }
 
-        return _spritesGroup;
+    public Sprite GetSprite(int rank, int suit)
+    {
+        return _spritesGroup[rank][suit];
     }
 
     private int ExtractNumber(string spriteName)
