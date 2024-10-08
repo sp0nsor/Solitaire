@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DeckView : MonoBehaviour
+public class EndStackView : MonoBehaviour
 {
     public void ShowCurrentCard(Card card)
     {

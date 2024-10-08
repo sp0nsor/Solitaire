@@ -4,18 +4,22 @@ using System.Collections.Generic;
 public class CardSpawner : MonoBehaviour
 {
     [SerializeField] private Transform[] _heaps;
-
+    [SerializeField] private EndStackView _endStack;
     private Deck _deck;
     private ICardFactory _cardFactory;
     private ISpriteLoader _spriteLoader;
+    private List<Card> _currentDeck;
 
     private void Awake()
     {
         _deck = new Deck();
+        _currentDeck = new List<Card>();
         _cardFactory = GetComponent<ICardFactory>();
         _spriteLoader = GetComponent<ISpriteLoader>();
 
         SpawnShuffledCards();
+
+        _endStack.ShowCurrentCard(_currentDeck[_currentDeck.Count - 1]);
     }
 
     public void SpawnShuffledCards()
@@ -29,6 +33,7 @@ public class CardSpawner : MonoBehaviour
             Card card = _cardFactory.CreateCard(combo[0], _heaps[0]);
             CardView cardView = card.GetComponent<CardView>();
             cardView.UpdateFrontSprite(_spriteLoader.GetSprite(combo[0], Random.Range(0, 4)));
+            _currentDeck.Add(card);
         }
 
         for (int i = 1; i < _heaps.Length; i++)
@@ -50,5 +55,6 @@ public class CardSpawner : MonoBehaviour
                 cardView.UpdateFrontSprite(_spriteLoader.GetSprite(rank, Random.Range(0, 4)));
             }
         }
+        _currentDeck.Reverse();
     }
 }

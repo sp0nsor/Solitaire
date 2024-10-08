@@ -21,7 +21,6 @@ public class SpriteLoader : MonoBehaviour, ISpriteLoader
         _numberRegex = new Regex(@"^\d+");
 
         InitSpritesGroup();
-
     }
 
     private void InitSpritesGroup()

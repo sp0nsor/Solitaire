@@ -7,7 +7,7 @@ public class CombinationGenerator : MonoBehaviour
     private const float _directionChangeChance = 0.15f;
 
     public GameObject CardPrefab;
-    public DeckView DeckView;
+    public EndStackView DeckView;
 
     public List<Card> cardModels;
     private List<Sprite>[] _cardsSprites;
