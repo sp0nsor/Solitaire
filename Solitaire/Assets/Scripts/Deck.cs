@@ -25,10 +25,10 @@ public class Deck
                 rank += isAscending ? 1 : -1;
 
                 if (rank > 13)
-                    rank = 1;
+                    rank = 13;
 
                 if (rank <= 0)
-                    rank = 13;
+                    rank = 1;
 
                 combinations[combinations.Count - 1].Add(rank);
                 comboLength--;

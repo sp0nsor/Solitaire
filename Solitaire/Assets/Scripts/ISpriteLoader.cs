@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public interface ISpriteLoader
 {
-    List<Sprite>[] GetSpritesGroup();
+    Sprite GetSprite(int rank, int suit);
 }

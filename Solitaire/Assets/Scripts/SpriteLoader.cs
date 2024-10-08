@@ -3,7 +3,7 @@ using UnityEngine.U2D;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-public class SpriteLoader : MonoBehaviour
+public class SpriteLoader : MonoBehaviour, ISpriteLoader
 {
     [SerializeField] private SpriteAtlas _cardsAtlas;
 
@@ -24,7 +24,7 @@ public class SpriteLoader : MonoBehaviour
 
     }
 
-    public void InitSpritesGroup()
+    private void InitSpritesGroup()
     {
         foreach (Sprite sprite in _allSprites)
         {
