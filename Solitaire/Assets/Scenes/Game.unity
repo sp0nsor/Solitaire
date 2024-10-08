@@ -636,6 +636,7 @@ GameObject:
   - component: {fileID: 1189650832}
   - component: {fileID: 1189650831}
   - component: {fileID: 1189650834}
+  - component: {fileID: 1189650835}
   m_Layer: 0
   m_Name: CardSpawner
   m_TagString: Untagged
@@ -703,6 +704,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cardsAtlas: {fileID: 4343727234628468602, guid: c3d55548c3dbeac42a25469711b2e2cd, type: 2}
+--- !u!114 &1189650835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189650830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88066fa48d2832642a5b1899bde5e35a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1532232623
 GameObject:
   m_ObjectHideFlags: 0

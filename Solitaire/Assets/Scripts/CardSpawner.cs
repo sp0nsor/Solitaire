@@ -5,21 +5,24 @@ public class CardSpawner : MonoBehaviour
 {
     [SerializeField] private Transform[] _heaps;
     [SerializeField] private EndStackView _endStack;
+
     private Deck _deck;
+    
     private ICardFactory _cardFactory;
     private ISpriteLoader _spriteLoader;
-    private List<Card> _currentDeck;
+    private ICardContainer _cardContainer;
 
     private void Awake()
     {
         _deck = new Deck();
-        _currentDeck = new List<Card>();
+
+        _cardContainer = GetComponent<ICardContainer>();
         _cardFactory = GetComponent<ICardFactory>();
         _spriteLoader = GetComponent<ISpriteLoader>();
 
         SpawnShuffledCards();
 
-        _endStack.ShowCurrentCard(_currentDeck[_currentDeck.Count - 1]);
+        _endStack.ShowCurrentCard(_cardContainer.GetDeckCard());
     }
 
     public void SpawnShuffledCards()
@@ -33,7 +36,7 @@ public class CardSpawner : MonoBehaviour
             Card card = _cardFactory.CreateCard(combo[0], _heaps[0]);
             CardView cardView = card.GetComponent<CardView>();
             cardView.UpdateFrontSprite(_spriteLoader.GetSprite(combo[0], Random.Range(0, 4)));
-            _currentDeck.Add(card);
+            _cardContainer.AddDeckCard(card);
         }
 
         for (int i = 1; i < _heaps.Length; i++)
@@ -53,8 +56,8 @@ public class CardSpawner : MonoBehaviour
                 Card card = _cardFactory.CreateCard(rank, _heaps[i]);
                 CardView cardView = card.GetComponent<CardView>();
                 cardView.UpdateFrontSprite(_spriteLoader.GetSprite(rank, Random.Range(0, 4)));
+                _cardContainer.AddTableCard(card);
             }
         }
-        _currentDeck.Reverse();
     }
 }
