@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
 
 public class CardContainer : MonoBehaviour, ICardContainer
 {
@@ -9,8 +8,8 @@ public class CardContainer : MonoBehaviour, ICardContainer
 
     private void Awake()
     {
-        _tableCards = new List<List<Card>>(4);
         _deckCards = new List<Card>();
+        _tableCards = new List<List<Card>>(4);
 
         for (int i = 0; i < 4; i++)
         {
@@ -37,6 +36,11 @@ public class CardContainer : MonoBehaviour, ICardContainer
 
     public Card GetDeckCard()
     {
-        return _deckCards[0];
+        return _deckCards[0];   
+    }
+
+    public Card GetFirstTableCard(int croup)
+    {
+        return _tableCards[croup][0];
     }
 }
