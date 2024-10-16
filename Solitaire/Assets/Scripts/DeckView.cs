@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DeckView : MonoBehaviour
@@ -17,7 +18,7 @@ public class DeckView : MonoBehaviour
         ShowGameCards();
     }
 
-    private void ShowCurrentCard(Card card)
+    public void ShowCurrentCard(Card card)
     {
         card.transform.SetParent(_endStack, true);
         card.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
@@ -36,10 +37,11 @@ public class DeckView : MonoBehaviour
         ShowCurrentCard(_cardContainer.GetDeckCard());
     }
 
-    private void UpdateCardSprite(Card card)
+    public void UpdateCardSprite(Card card)
     {
+        if (card == null)
+            Debug.Log("adasdasdasdsds");
         CardView view = card.GetComponent<CardView>();
         view.UpdateFrontSprite(_spriteLoader.GetSprite(card.Rank, Random.Range(0, 4)));
     }
-
 }
