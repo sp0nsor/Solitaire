@@ -28,7 +28,6 @@ public class CardContainer : MonoBehaviour, ICardContainer
 
                 return;
             }
-            
         }
     }
 
@@ -59,7 +58,7 @@ public class CardContainer : MonoBehaviour, ICardContainer
         _deckCards.Remove(card);
     }
 
-    public Card GetFirstTableCard(int croup)
+    public Card GetFirstTableCard(int croup)// кабута это можно убрать 
     {
         return _tableCards[croup][0];
     }

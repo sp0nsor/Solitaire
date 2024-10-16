@@ -1,11 +1,16 @@
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DeckView : MonoBehaviour
 {
     [SerializeField] private Transform _endStack;
+    [SerializeField] private Button _nextButton;
+
     private ICardContainer _cardContainer;
     private ISpriteLoader _spriteLoader;
+
+    public event Action OnNextButtonClick;
 
     private void Awake()
     {
@@ -39,9 +44,14 @@ public class DeckView : MonoBehaviour
 
     public void UpdateCardSprite(Card card)
     {
-        if (card == null)
-            Debug.Log("adasdasdasdsds");
+        if(card == null) return;
+
         CardView view = card.GetComponent<CardView>();
-        view.UpdateFrontSprite(_spriteLoader.GetSprite(card.Rank, Random.Range(0, 4)));
+        view.UpdateFrontSprite(_spriteLoader.GetSprite(card.Rank, UnityEngine.Random.Range(0, 4)));
+    }
+
+    public void NextDeckCard()
+    {
+        OnNextButtonClick?.Invoke();
     }
 }
