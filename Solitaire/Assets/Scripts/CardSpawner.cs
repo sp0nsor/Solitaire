@@ -28,12 +28,14 @@ public class CardSpawner : MonoBehaviour
 
         foreach(var combo in combinations)
         {
-            Card card = _cardFactory.CreateCard(combo[0], _heaps[0]);
-            _cardContainer.AddDeckCard(card);
+            Card card = _cardFactory.CreateCard(_heaps[0]);
+            _cardContainer.AddDeckCard(card, combo[0]);
+            combo.Reverse();
         }
 
         for (int i = 1; i < _heaps.Length; i++)
         {
+
             for (int j = 0; j < 10; j++)
             {
                 if (cardIndex >= combinations[comboIndex].Count)
@@ -45,8 +47,8 @@ public class CardSpawner : MonoBehaviour
                         comboIndex = 0;
                 }
                 int rank = combinations[comboIndex][cardIndex];
-                Card card = _cardFactory.CreateCard(rank, _heaps[i]);
-                _cardContainer.AddTableCard(card);
+                Card card = _cardFactory.CreateCard(_heaps[i]);
+                _cardContainer.AddTableCard(card, rank);
 
                 cardIndex++;
             }

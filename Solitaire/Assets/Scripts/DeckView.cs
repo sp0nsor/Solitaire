@@ -10,7 +10,6 @@ public class DeckView : MonoBehaviour
     {
         _cardContainer = GetComponent<ICardContainer>();
         _spriteLoader = GetComponent<ISpriteLoader>();
-
     }
 
     private void Start()

@@ -17,26 +17,36 @@ public class CardContainer : MonoBehaviour, ICardContainer
         }
     }
 
-    public void AddTableCard(Card card)
+    public void AddTableCard(Card card, int rank)
     {
-        foreach (var heap in _tableCards)
+        foreach (List<Card> heap in _tableCards)
         {
             if (heap.Count < 10)
             {
+                InitCardRelationships(heap, card, rank);
                 heap.Add(card);
+
                 return;
             }
+            
         }
     }
 
-    public void AddDeckCard(Card card)
+    private void InitCardRelationships(List<Card> cards, Card card, int rank)
     {
+        Card lastCard = cards.Count == 0 ? null : cards[cards.Count - 1];
+        card.Init(null, lastCard, rank);
+    }
+
+    public void AddDeckCard(Card card, int rank)
+    {
+        InitCardRelationships(_deckCards, card, rank);
         _deckCards.Add(card);
     }
 
     public Card GetDeckCard()
     {
-        return _deckCards[0];   
+        return _deckCards[_deckCards.Count - 1];   
     }
 
     public Card GetFirstTableCard(int croup)

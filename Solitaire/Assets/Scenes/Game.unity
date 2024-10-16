@@ -663,7 +663,6 @@ MonoBehaviour:
   - {fileID: 830175316}
   - {fileID: 649374949}
   - {fileID: 1532232624}
-  _endStack: {fileID: 0}
 --- !u!4 &1189650833
 Transform:
   m_ObjectHideFlags: 0
@@ -716,6 +715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d75484b793a8fb40880964818e0b0cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _endStack: {fileID: 828037105}
 --- !u!1 &1532232623
 GameObject:
   m_ObjectHideFlags: 0

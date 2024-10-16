@@ -2,5 +2,5 @@
 
 public interface ICardFactory
 {
-    Card CreateCard(int rank, Transform parent);
+    Card CreateCard(Transform parent);
 }
