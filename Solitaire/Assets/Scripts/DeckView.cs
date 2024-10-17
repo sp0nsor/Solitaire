@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class DeckView : MonoBehaviour
 {
     [SerializeField] private Transform _endStack;
-    [SerializeField] private Button _nextButton;
 
     private ICardContainer _cardContainer;
     private ISpriteLoader _spriteLoader;

@@ -30,7 +30,6 @@ public class CardSpawner : MonoBehaviour
         {
             Card card = _cardFactory.CreateCard(_heaps[0]);
             _cardContainer.AddDeckCard(card, combo[0]);
-            combo.Reverse();
         }
 
         for (int i = 1; i < _heaps.Length; i++)

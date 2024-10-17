@@ -31,11 +31,6 @@ public class CardContainer : MonoBehaviour, ICardContainer
         }
     }
 
-    public void AddDeckCard(Card card)
-    {
-        _deckCards.Add(card);
-    }
-
     private void InitCardRelationships(List<Card> cards, Card card, int rank)
     {
         Card lastCard = cards.Count == 0 ? null : cards[cards.Count - 1];
@@ -58,7 +53,7 @@ public class CardContainer : MonoBehaviour, ICardContainer
         _deckCards.Remove(card);
     }
 
-    public Card GetFirstTableCard(int croup)// кабута это можно убрать 
+    public Card GetFirstTableCard(int croup)
     {
         return _tableCards[croup][0];
     }

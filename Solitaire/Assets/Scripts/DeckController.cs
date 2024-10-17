@@ -9,25 +9,36 @@ public class DeckController : MonoBehaviour
     {
         _cardContainer = GetComponent<ICardContainer>();
         _deckView = GetComponent<DeckView>();
-        CardView.OnCardClick += ABC;
-        _deckView.OnNextButtonClick += BCD;
+        CardView.OnCardClick += PlayCard;
+        _deckView.OnNextButtonClick += UpdateToNextCard;
     }
 
-    public void ABC(Card card)
+    private void PlayCard(Card card)
     {
         Card currentCard = _cardContainer.GetDeckCard();
 
-        if (card.Rank == currentCard.Rank + 1 || card.Rank == currentCard.Rank - 1 
-            || card.Rank == currentCard.Rank - 12 || card.Rank == currentCard.Rank + 12)
+        if (IsCardPlayable(card, currentCard))
         {
-            _cardContainer.RemoveCard(currentCard);
-            _cardContainer.AddDeckCard(card);
-            _deckView.ShowCurrentCard(card);
-            _deckView.UpdateCardSprite(card.Parent);
+            UpdateDeck(card, currentCard);
         }
     }
 
-    private void BCD()
+    private void UpdateDeck(Card card, Card currentCard)
+    {
+        _cardContainer.RemoveCard(currentCard);
+        _deckView.UpdateCardSprite(card.Parent);
+        _cardContainer.AddDeckCard(card, card.Rank);
+        _deckView.ShowCurrentCard(card);
+    }
+
+    private bool IsCardPlayable(Card card, Card currentCard)
+    {
+        int rankDifference = Mathf.Abs(card.Rank - currentCard.Rank);
+
+        return rankDifference == 1 || rankDifference == 12;
+    }
+
+    private void UpdateToNextCard()
     {
         Card currentCard = _cardContainer.GetDeckCard();
 
@@ -38,8 +49,8 @@ public class DeckController : MonoBehaviour
 
     private void OnDestroy()
     {
-        CardView.OnCardClick -= ABC;
-        _deckView.OnNextButtonClick -= BCD;
+        CardView.OnCardClick -= PlayCard;
+        _deckView.OnNextButtonClick -= UpdateToNextCard;
     }
 
 }
