@@ -1,6 +1,6 @@
+using DG.Tweening;
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class DeckView : MonoBehaviour
 {
@@ -25,10 +25,17 @@ public class DeckView : MonoBehaviour
     public void ShowCurrentCard(Card card)
     {
         card.transform.SetParent(_endStack, true);
-        card.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+        var rt = card.GetComponent<RectTransform>();
+        var targetPosition = Vector3.zero;
+        var duration = 0.5f;
+
+        rt.DOAnchorPos(targetPosition, duration).SetEase(Ease.OutQuad).OnComplete(() =>
+        {
+            rt.DOShakeAnchorPos(0.2f, strength: new Vector2(3f, 3f), vibrato: 3, randomness: 90, snapping: false, fadeOut: true);
+        });
+
         UpdateCardSprite(card);
     }
-
 
     private void ShowGameCards()
     {
