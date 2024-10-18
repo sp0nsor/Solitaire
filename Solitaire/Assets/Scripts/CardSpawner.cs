@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class CardSpawner : MonoBehaviour
 {
     [SerializeField] private Transform[] _heaps;
+    [SerializeField] private Transform _deckTransform;
 
     private Deck _deck;
     
@@ -23,14 +24,14 @@ public class CardSpawner : MonoBehaviour
     public void SpawnShuffledCards()
     {
         List<List<int>> combinations = _deck.GenerateCombinations();
-        int[] lastIndexInHeap = new int[_heaps.Length];
+        int[] heapCapacities = new int[_heaps.Length];
         List<Card> deck = new List<Card>();
         for (int i = 0; i < _heaps.Length; i++)
-            lastIndexInHeap[i] = 10;
+            heapCapacities[i] = 10;
 
         foreach(var combo in combinations)
         {
-            Card card = _cardFactory.CreateCard(_heaps[0]);
+            Card card = _cardFactory.CreateCard(_deckTransform);
             _cardContainer.AddDeckCard(card, combo[0]);
             deck.Add(card);
         }
@@ -44,14 +45,15 @@ public class CardSpawner : MonoBehaviour
 
                 do
                 {
-                    heap = Random.Range(1, _heaps.Length);
-                }while(lastIndexInHeap[heap] <= 0);
+                    heap = Random.Range(0, _heaps.Length);
+                }while(heapCapacities[heap] <= 0);
 
                 Card card = _cardFactory.CreateCard(_heaps[heap]);
-                _cardContainer.AddTableCard(card, rank);
+                _cardContainer.AddTableCard(card, rank, heap);
 
-                lastIndexInHeap[heap]--;
+                heapCapacities[heap]--;
             }
         }
+        _cardContainer.MakeReverseDeck();
     }
 }
