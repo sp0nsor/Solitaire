@@ -21,7 +21,7 @@ public class CardSpawner : MonoBehaviour
         SpawnShuffledCards();
     }
 
-    public void SpawnShuffledCards()
+    private void SpawnShuffledCards()
     {
         List<List<int>> combinations = _deck.GenerateCombinations();
         int[] heapCapacities = new int[_heaps.Length];
