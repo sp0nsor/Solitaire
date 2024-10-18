@@ -45,11 +45,15 @@ public class CardContainer : MonoBehaviour, ICardContainer
 
     public Card GetDeckCard()
     {
+        _deckCards.Reverse();
         return _deckCards[_deckCards.Count - 1];   
     }
 
     public void RemoveCard(Card card)
     {
+        if (_deckCards.Count == 1)
+            return;
+
         _deckCards.Remove(card);
     }
 

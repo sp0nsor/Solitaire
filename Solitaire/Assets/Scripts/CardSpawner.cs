@@ -22,34 +22,35 @@ public class CardSpawner : MonoBehaviour
 
     public void SpawnShuffledCards()
     {
-        int comboIndex = 1;
-        int cardIndex = 0;
         List<List<int>> combinations = _deck.GenerateCombinations();
+        int[] lastIndexInHeap = new int[_heaps.Length];
+        List<Card> deck = new List<Card>();
+        for (int i = 0; i < _heaps.Length; i++)
+            lastIndexInHeap[i] = 10;
 
         foreach(var combo in combinations)
         {
             Card card = _cardFactory.CreateCard(_heaps[0]);
             _cardContainer.AddDeckCard(card, combo[0]);
+            deck.Add(card);
         }
 
-        for (int i = 1; i < _heaps.Length; i++)
+        foreach(var combo in combinations)
         {
-
-            for (int j = 0; j < 10; j++)
+            for(int i = 1; i < combo.Count; i++)
             {
-                if (cardIndex >= combinations[comboIndex].Count)
-                {
-                    comboIndex++;
-                    cardIndex = 0;
+                int rank = combo[i];
+                int heap;
 
-                    if (comboIndex >= combinations.Count)
-                        comboIndex = 0;
-                }
-                int rank = combinations[comboIndex][cardIndex];
-                Card card = _cardFactory.CreateCard(_heaps[i]);
+                do
+                {
+                    heap = Random.Range(1, _heaps.Length);
+                }while(lastIndexInHeap[heap] <= 0);
+
+                Card card = _cardFactory.CreateCard(_heaps[heap]);
                 _cardContainer.AddTableCard(card, rank);
 
-                cardIndex++;
+                lastIndexInHeap[heap]--;
             }
         }
     }
