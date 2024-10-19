@@ -1,11 +1,11 @@
 ﻿public interface ICardContainer
 {
-    void AddDeckCard(Card card, int rank);
-    void AddTableCard(Card card, int rank, int heap);
-    Card GetDeckCard();
-    Card GetFirstTableCard(int croup);
-    void RemoveDeckCard(Card card);
     int GetCardCount();
-    void RemoveTableCard(int heap, Card card);
+    Card GetDeckCard();
     public void MakeReverseDeck();
+    void RemoveDeckCard(Card card);
+    Card GetFirstTableCard(int croup);
+    void AddDeckCard(Card card, int rank);
+    void RemoveTableCard(int heap, Card card);
+    void AddTableCard(Card card, int rank, int heap);
 }

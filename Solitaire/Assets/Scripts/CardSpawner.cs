@@ -25,15 +25,14 @@ public class CardSpawner : MonoBehaviour
     {
         List<List<int>> combinations = _deck.GenerateCombinations();
         int[] heapCapacities = new int[_heaps.Length];
-        List<Card> deck = new List<Card>();
+
         for (int i = 0; i < _heaps.Length; i++)
-            heapCapacities[i] = 10;
+            heapCapacities[i] = CardContainer.CARD_IN_HEAP;
 
         foreach(var combo in combinations)
         {
             Card card = _cardFactory.CreateCard(_deckTransform);
             _cardContainer.AddDeckCard(card, combo[0]);
-            deck.Add(card);
         }
 
         foreach(var combo in combinations)

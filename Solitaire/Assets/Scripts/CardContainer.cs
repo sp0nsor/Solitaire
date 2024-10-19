@@ -6,14 +6,17 @@ public class CardContainer : MonoBehaviour, ICardContainer
     private List<Card> _deckCards;
     private List<List<Card>> _tableCards;
 
+    public const int HEAP_COUNT = 4;
+    public const int CARD_IN_HEAP = 10;
+
     private void Awake()
     {
         _deckCards = new List<Card>();
-        _tableCards = new List<List<Card>>(4);
+        _tableCards = new List<List<Card>>(HEAP_COUNT);
 
         for (int i = 0; i < 4; i++)
         {
-            _tableCards.Add(new List<Card>(10));
+            _tableCards.Add(new List<Card>(CARD_IN_HEAP));
         }
     }
 
