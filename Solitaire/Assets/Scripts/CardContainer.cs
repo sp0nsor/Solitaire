@@ -19,19 +19,19 @@ public class CardContainer : MonoBehaviour, ICardContainer
 
     public void AddTableCard(Card card, int rank, int heap)
     {
-        InitCardRelationships(_tableCards[heap], card, rank);
+        InitCardRelationships(_tableCards[heap], card, rank, heap);
         _tableCards[heap].Add(card);
     }
 
-    private void InitCardRelationships(List<Card> cards, Card card, int rank)
+    private void InitCardRelationships(List<Card> cards, Card card, int rank, int heap)
     {
         Card lastCard = cards.Count == 0 ? null : cards[cards.Count - 1];
-        card.Init(null, lastCard, rank);
+        card.Init(null, lastCard, rank, heap);
     }
 
     public void AddDeckCard(Card card, int rank)
     {
-        InitCardRelationships(_deckCards, card, rank);
+        InitCardRelationships(_deckCards, card, rank, card.Heap);
         _deckCards.Add(card);
     }
 
@@ -40,16 +40,24 @@ public class CardContainer : MonoBehaviour, ICardContainer
         return _deckCards[_deckCards.Count - 1];   
     }
 
+    public int GetCardCount()
+    {
+        return _deckCards.Count;
+    }
+
     public void MakeReverseDeck()
     {
         _deckCards.Reverse();
     }
 
-    public void RemoveCard(Card card)
+    public void RemoveTableCard(int heap, Card card)
     {
-        if (_deckCards.Count == 1)
-            return;
+        Card tableCard = _tableCards[heap][0];
+        _tableCards[heap].Remove(tableCard);
+    }
 
+    public void RemoveDeckCard(Card card)
+    {
         _deckCards.Remove(card);
     }
 

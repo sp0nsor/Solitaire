@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,8 @@ public class DeckView : MonoBehaviour
     [SerializeField] private Transform _endStack;
     [SerializeField] private RectTransform _reloadButtonTransform;
     [SerializeField] private RectTransform _nextButtonTransform;
+    [SerializeField] private GameObject _winText;
+    [SerializeField] private GameObject _looseText;
 
     private ICardContainer _cardContainer;
     private ISpriteLoader _spriteLoader;
@@ -19,7 +22,8 @@ public class DeckView : MonoBehaviour
 
     private void Awake()
     {
-        InitializeDependencies();
+        _cardContainer = GetComponent<ICardContainer>();
+        _spriteLoader = GetComponent<ISpriteLoader>();
     }
 
     private void Start()
@@ -27,24 +31,11 @@ public class DeckView : MonoBehaviour
         ShowInitialGameCards();
     }
 
-    private void InitializeDependencies()
-    {
-        _cardContainer = GetComponent<ICardContainer>();
-        _spriteLoader = GetComponent<ISpriteLoader>();
-    }
-
     public void ShowCurrentCard(Card card)
     {
-        if (card == null) return;
-
-        PlaceCardAtEndStack(card);
-        AnimateCardToEndStack(card.GetComponent<RectTransform>());
-        UpdateCardSprite(card);
-    }
-
-    private void PlaceCardAtEndStack(Card card)
-    {
         card.transform.SetParent(_endStack, true);
+        UpdateCardSprite(card);
+        AnimateCardToEndStack(card.GetComponent<RectTransform>());
     }
 
     private void AnimateCardToEndStack(RectTransform cardTransform)
@@ -65,8 +56,6 @@ public class DeckView : MonoBehaviour
 
     public void UpdateCardSprite(Card card)
     {
-        if (card == null) return;
-
         CardView view = card.GetComponent<CardView>();
         view.UpdateFrontSprite(_spriteLoader.GetSprite(card.Rank, UnityEngine.Random.Range(0, 4)));
     }
@@ -109,5 +98,15 @@ public class DeckView : MonoBehaviour
             .DORotate(new Vector3(0f, 0f, -360f), AnimationDuration, RotateMode.FastBeyond360)
             .SetEase(Ease.OutCubic)
             .OnComplete(() => onComplete?.Invoke());
+    }
+
+    public void ShowWinMessage()
+    {
+        _winText.SetActive(true);
+    }
+
+    public void ShowLooseMassage()
+    {
+        _looseText.SetActive(true);
     }
 }
